@@ -145,6 +145,8 @@ Instead of finding the p-value distribution I found the distribution of mean dif
   frameborder="0"
 >Non-missing outages over time</iframe>
 
+About 50% of non-missing bootstrapped mean differences are on either side of the actual mean difference. This indicates that knowing whether or not a hurricane occurred is not helpful in predicting missing values. The hurricane feature is likely MCAR.  
+
 
 
 
