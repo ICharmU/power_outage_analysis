@@ -169,6 +169,34 @@ $H_1$: Outage duration does not follow an exponential distribution.
 
 I parameterized the null distribution with the maximum likelihood estimator $\beta = mean$ from the empirical distribution. This isn't a high stakes test, so I used a standard significance level of $\alpha = 0.05$.   
 
-Using a 2-sample KS test I concluded that it was unlikely the outage duration follows an exponential distribution (p-value = $3.32*10^{-12}$). This wasn't a huge surprise as the empirical distribution has a much larger concentration of points towards 0, compared to the MLE distribution.  
+Using a 2-sample KS test I can infer it is unlikely the outage duration follows an exponential distribution (p-value = $3.32*10^{-12}$). This isn't a huge surprise as the empirical distribution has a much larger concentration of points towards 0, compared to the MLE distribution.  
 
+## Framing a Prediction Problem
+My goal is to predict the duration of power outages to measure their severity.  
+I will use a regression model as time is continuous and the outages appear to follow some decaying distribution (some exponential-adjacent distribution). Since the outage duration PDF is non-linear I will use RMSE instead of $R^2$. This will also allow me to determine the average amount of time my predictions are off by.  
+
+When making predictions, the year will not be a useful predictor at the time of prediction because  it is reliant on future months later in the year for all observations that come from a given year. I also can't use the start and end dates as those are directly used to calculate the duration. Although there is a revision period for ocean temperatures, this feature is still valid as it is produced on a historical basis. All other attributes can be known at the time of the event (usually), such as the type of weather. Or the information is (nearly) unchanging (e.g. NERC region, state name).  
+
+## Baseline Model
+As my baseline model I am using linear regression with anomaly level and population as the features. Both anomaly level and population are continuous.  
+
+I used a 80-20 train test split and shuffled the data as there may be a time element associated when the original input order.  
+
+On the training set this model has a loss of ~6400 minutes or about 4.5 days. The testing set had a loss of ~3850 minutes or about 2.5 days.  
+
+This model could be decent as it doesn't seem to overfit, but it may be underfitting (hard to tell).  Being off by 2.5 days is good, but only for longer outages. When the outage is short I overestimate the time, on average.  
+
+## Final Model
+When looking at alternative models I tried a random forest approach, however this only ended up overfitting to the training data. The training loss was comparable to this baseline model, but I would worry about generalizing to years not included in the dataset.  
+
+The model I ended up using was a linear regression model (again), but with the parameters:
+- Month (discrete)
+- NERC Region (nominal)
+- Cause Category (nominal)
+- Hurricane Occurred (nominal/discrete)
+- Sector Proportions (continuous)
+- Climate Category (ordinal)
+
+I started off with anomaly level, and I kept the general idea through the climate category feature which describes each anomaly level as cold, normal or warm.  
+The population feature in the baseline model was really meant to capture location since it is different for each state. I thought this wasn't a good geographical comparison, which is what a state should really represent. When I removed population, I included NERC region and whether a hurricane occurred as these describe the general region a state is located in and whether a state is near a large body of water. The cause category added some state-related features (e.g. weather), but this also compared the events themselves, regardless of located (e.g. crime based outages). I haven't talked about sector proportions, but what it represents is how close the residential, industrial and commercial sectors are to using similar power in a state. This is calculated as 27 * product(residential electricity use, industrial electricity use, commercial electricity use). The 27 comes from the fact that a perfectly equal energy use split will be close to 1 and a large imbalance will be close to 0. This provides information about the different energy usages in each state. Although it doesn't differentiate which sector used a specific amount of energy, my goal was to see if an imbalance in energy use was related to outages (possibly related to excessive energy use).  
 
