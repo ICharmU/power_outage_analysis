@@ -182,9 +182,9 @@ As my baseline model I am using linear regression with anomaly level and populat
 
 I used a 80-20 train test split and shuffled the data as there may be a time element associated when the original input order.  
 
-On the training set this model has a loss of ~6400 minutes or about 4.5 days. The testing set had a loss of ~3850 minutes or about 2.5 days.  
+On the training set this model has a loss of ~6400 minutes or about 4.5 days. The testing set had a loss of ~3850 minutes or about 2.7 days.  
 
-This model could be decent as it doesn't seem to overfit, but it may be underfitting (hard to tell).  Being off by 2.5 days is good, but only for longer outages. When the outage is short I overestimate the time, on average.  
+This model could be decent as it doesn't seem to overfit, but it may be underfitting (hard to tell).  Being off by 2.7 days is good, but only for longer outages. When the outage is short I overestimate the time, on average.  
 
 ## Final Model
 When looking at alternative models I tried a random forest approach, however this only ended up overfitting to the training data. The training loss was comparable to this baseline model, but I would worry about generalizing to years not included in the dataset.  
@@ -200,3 +200,14 @@ The model I ended up using was a linear regression model (again), but with the p
 I started off with anomaly level, and I kept the general idea through the climate category feature which describes each anomaly level as cold, normal or warm.  
 The population feature in the baseline model was really meant to capture location since it is different for each state. I thought this wasn't a good geographical comparison, which is what a state should really represent. When I removed population, I included NERC region and whether a hurricane occurred as these describe the general region a state is located in and whether a state is near a large body of water. The cause category added some state-related features (e.g. weather), but this also compared the events themselves, regardless of located (e.g. crime based outages). I haven't talked about sector proportions, but what it represents is how close the residential, industrial and commercial sectors are to using similar power in a state. This is calculated as 27 * product(residential electricity use, industrial electricity use, commercial electricity use). The 27 comes from the fact that a perfectly equal energy use split will be close to 1 and a large imbalance will be close to 0. This provides information about the different energy usages in each state. Although it doesn't differentiate which sector used a specific amount of energy, my goal was to see if an imbalance in energy use was related to outages (possibly related to excessive energy use).  
 
+My final model was trained on the same train test split as the baseline model. My final model had a training accuracy of 5900 minutes (4.1 days) and a testing accuracy of 3340 minutes (2.3 days). This is slightly better than my baseline model and it seems promising with a lower testing accuracy than training accuracy (less likely to be overfitting). However, it should still be noted that this training and testing set could be better for my final linear model and features. I didn't cross validate my linear regression model during training, so it's a bit unclear how well the model generalizes.
+
+## Fairness Analysis
+To see if my model has an underlying bias towards with respect to certain features I will undergo a permutation test. Specifically, I want to see if the RMSE is better or worse when predicting certain years. This way I can retroactively check if my model is consistent.  
+
+<iframe
+  src="assets/avg_rmse_by_year.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Average RMSE by year</iframe>
