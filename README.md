@@ -8,7 +8,6 @@ This outages dataset contains information from January 2000 to June 2016 for pow
 
 ## Data Cleaning and Exploratory Data Analysis
 
-### Cleaning
 When reading in the data from an Excel file, the column names were formatted with periods instead of underscores. I reformatted the column names to be in snake case with underscores. Additionally, many of the datatypes were read in as strings by default, so I converted most of these columns to floats (e.g. outage duration in minutes), along with a few datetimes (e.g. the outage start date and time).  
 
 Some notable information about the locations where data was collected is that Washington D.C. had major reported outages during this time period, but Rhode Island had none (and thus was not listed as a state for any observations). A major outage was defined as 50,000 impacted customers or a significant loss of power (300 megawatts), both of which are similar in impact level, based on average household electricity consumption (~0.02 megawatts per day, although this can vary by location).  
@@ -29,35 +28,21 @@ There were 9 observations that were missing values for anomaly level, so I proba
 
 <iframe
   src="assets/imputing_anomaly_data.html"
-  width="400"
-  height="200"
+  width="600"
+  height="400"
   frameborder="0"
 >Observations to be imputed</iframe>
 
 I assigned Alaska a climate region of cold based on its geographical location. For other missing climate regions I probabilistically imputed by state for other observations with the same climate regions. Looking back, this was unnecessary as I should have derived the climate region feature from the anomaly level directly.  
 
-There were many missing outage durations from 2000 and 2016. Since the study started in 2000 and ended in 2016 I concluded that these observations were missing due to data collection limitations. Since these were edge cases and imputing these durations could greatly bias my later predictions I decided to remove these observations from the dataset. I found this to be acceptable as the missing observations came from many different states (see below).  
+There were many missing outage durations from 2000 and 2016. Since the study started in 2000 and ended in 2016 I concluded that these observations were missing due to data collection limitations. Since these were edge cases and imputing these durations could greatly bias my later predictions I decided to remove these observations from the dataset. I found this to be acceptable as the missing observations came from many different states (see the plots below). Note that some states may have more than one missing state in a year, but there are only ~50 missing outage durations total.  
 
 <iframe
   src="assets/missing_states_by_year.html"
-  width="400"
-  height="300"
+  width="600"
+  height="400"
   frameborder="0"
 >States with at least one missing outage duration by year</iframe>
-
-### EDA
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
