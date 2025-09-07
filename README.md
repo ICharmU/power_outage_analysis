@@ -64,7 +64,7 @@ Hurricane name was another column. Any outages that didn't occur during a hurric
 
 Looking at the average outage duration when there was or was not a hurricane, it appears that hurricanes have longer outages on average, regardless of NERC region:
 
-|  NERC   |     0.0 |      1.0 |
+|  NERC   | No Hurr |Hurricane |
 |--------:|--------:|---------:|
 |  FRCC   | 3344.28 |  5558.39 |
 |  MRO    | 2933.59 |   nan    |
