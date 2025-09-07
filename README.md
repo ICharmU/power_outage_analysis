@@ -23,7 +23,14 @@ More outages seem to occur during the winter and summer months than in spring an
 
 When cleaning the NERC regions I consolidated Alaska and Hawaii into non-continental, as NERC technically consists of only the continental states (Alaska and Hawaii have their own separate power grids). ECAR was one of three regions that [merged into the RFC region](https://www.nerc.com/news/Documents/NERCHistoryBook.pdf) (p. 102). Although ECAR was the only region of the 3 that merged that was reported here. If you're curious about NERC regions, here is a [map](https://atlas.eia.gov/datasets/eia::nerc-regions/explore) I found from the Energy Information Administration that guided my inquiries for some of the oddly classified NERC regions (e.g. FRCC, SERC I classified under FRCC since that observation with associated with the state Florida). Florida actually [split from SERC](https://www.nerc.com/news/Documents/NERCHistoryBook.pdf) in 1996 to be its own member in NERC (p. 171). This was before the data was collected so I disregarded FRCC's membership history. [Here](https://upload.wikimedia.org/wikipedia/commons/f/f4/NERC-map-en.svg) is a colored map that I found helpful for quickly differentiating the NERC regions.  
 
-As mentioned in the introduction, there was an ocean temperature anomaly level reporting that uses an oceanic index to compare expected ocean temperatures to their actual temperatures. If you're curious, you can find the temperature differences [here](https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php). There are blue, red and grey colors temperatures on that NOAA website. Another feature in the dataset considered all blue temperatures to be cold (<-0.5°C), red temperatures to be warm (>0.5°C) and grey to be normal (within +/- 0.5°C).  
+As mentioned in the introduction, there was an ocean temperature anomaly level reporting that uses an oceanic index to compare expected ocean temperatures to their actual temperatures. If you're curious, you can find the temperature differences [here](https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php). There are blue, red and grey colors temperatures on that NOAA website. Another feature in the dataset considered all blue temperatures to be cold (<-0.5°C), red temperatures to be warm (>0.5°C) and grey to be normal (within +/- 0.5°C). Below is a graph of the anomaly levels over time (by month).
+
+<iframe
+  src="assets/anomaly_level_over_time.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Observations to be imputed</iframe>
 
 Each observation was associated with a cause (e.g. severe weather, intentional shutdown to prevent overload). There was also an optional detail for the cause associated with each observation (e.g. thunderstorm, winter storm). When cleaning the details I filled in missing values with the cause string as a good portion of the details were already duplicated like this. For the non-repeat values I grouped by common names (e.g. ice/rain -> winter storm, winter -> winter storm, etc.). Some of the largest groups I manufactured were intentional, meaning that the grid was shutoff preemptively in order to prevent a larger shutdown. I also grouped faulty equipment together (anything related to failures). A domain specific grouping was substations, which essentially transfer power from a large generating station to individual households (there are a [few types of substations](https://www.nationalgrid.com/stories/energy-explained/what-is-a-substation), but this is the gist of what they do). For some general terms (storm, severe weather and fog), I created a grouping called unknown origin that would encapture there values as assigning the wrong storm to the wrong group (winter vs thunder) could bias later predictions more than leaving the two separate.  
 
@@ -52,6 +59,10 @@ There were many missing outage durations from 2000 and 2016. Since the study sta
   height="400"
   frameborder="0"
 >States with at least one missing outage duration by year</iframe>
+
+Hurricane name was another column. Any outages that didn't occur during a hurricane were missing. I binarized this column so all missing values were 0 (no hurricane) and 1 for observations with a hurricane name (hurricane occurred). This would lose minimal information as each hurricane would be associated with a month and year from the same observation and the name is mostly arbitrary (ignoring the first letter).  
+
+There were two observations, one from 2002 and the other from 2006, that were missing electricity prices. Since these seemed anomalous as all other columns had associated prices I removed them (assuming MCAR).  
 
 
 
