@@ -25,21 +25,14 @@ There was also currency relate data (e.g. electricity prices). I converted all p
 
 The last section of feature involved state information (e.g. population, percent of state as water/land, population density). I converted percents to proportions here as well. I found that larger states and states on the water (e.g. California, Texas) had the most number of outages over the time period. On the other hand, less densely populated states (e.g. North Dakota) had almost no major outages reported. This dataset differentiated urban areas (50,000+ people) from urban clusters (2,500-50,000 people) living in some local area. Wyoming had the highest statewide urban cluster percent, with about 40% of people living in urban clusters, while most states consisted of 10-20% urban clusters. Washington D.C. was considered 100% urban, so I filled in the missing urban cluster value with 0. 
 
-There were 9 observations that were missing values for anomaly level, so I probabilistically imputed these missing values by conditioning on year and state. This fixed about half of the observations, so for the rest I relaxed the condition to only be on year instead (Alaska only had 1 observations, so state did not work). Due to the wave-like pattern of ocean anomaly levels this imputation was justified as each year will be relatively close together. 
+There were 9 observations that were missing values for anomaly level, so I probabilistically imputed these missing values by conditioning on year and state. This fixed about half of the observations, so for the rest I relaxed the condition to only be on year instead (Alaska only had 1 observations, so state did not work). Due to the wave-like pattern of ocean anomaly levels this imputation was justified as each year will be relatively close together. In the graph below you can see the anomaly levels for non-missing states. Since a lot of the missing observations came from the early 2000s where no other state data is available, imputation conditional on year was ideal.  
 
 <iframe
   src="assets/imputing_anomaly_data.html"
   width="800"
   height="600"
   frameborder="0"
->test test test</iframe>
-
-<iframe
-  src="assets/imputing_anomaly_data.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+>Observations to be imputed</iframe>
 
 
 
