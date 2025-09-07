@@ -1,4 +1,3 @@
-<script src="https://rawcdn.githack.com/oscarmorrison/md-page/master/md-page.js></script><noscript>
 # Major US Power Outages (2000-2016)
 Supplementary project for DSC 80.
 
