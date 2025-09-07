@@ -106,8 +106,8 @@ I first compared the missingness by year to infer whether the distribution appea
 >Missing outages over time</iframe>
 
 I performed a hypothesis test under the assumptions:  
-$`H_0`$: Missing and non-missing outage duration observations follow the same year distribution.  
-$`H_1`$: Missing and non-missing outage duration observations follow the same year distribution.  
+H_~0~: Missing and non-missing outage duration observations follow the same year distribution.  
+H~1~: Missing and non-missing outage duration observations follow the same year distribution.  
 
 Using the Kolmogorov Smirnov (KS) test for each permutation I found a distribution of p-values:
 <iframe
@@ -164,16 +164,16 @@ When looking at all outage durations, I was curious whether an exponential distr
   frameborder="0"
 >MLE exponential distribution</iframe>
 
-$`H_0`$: Outage duration follows an exponential distribution.  
-$`H_1`$: Outage duration does not follow an exponential distribution.    
+H~0~: Outage duration follows an exponential distribution.  
+H~1~: Outage duration does not follow an exponential distribution.    
 
-I parameterized the null distribution with the maximum likelihood estimator $`\beta` = mean$ from the empirical distribution. This isn't a high stakes test, so I used a standard significance level of $`\alpha` = 0.05$.   
+I parameterized the null distribution with the maximum likelihood estimator beta = mean(empirical distribution). This isn't a high stakes test, so I used a standard significance level of alpha = 0.05.   
 
-Using a 2-sample KS test I can infer it is unlikely the outage duration follows an exponential distribution (p-value = $`3.32*10^{-12}`$). This isn't a huge surprise as the empirical distribution has a much larger concentration of points towards 0, compared to the MLE distribution.  
+Using a 2-sample KS test I can infer it is unlikely the outage duration follows an exponential distribution (p-value = 3.32*10^-12^). This isn't a huge surprise as the empirical distribution has a much larger concentration of points towards 0, compared to the MLE distribution.  
 
 ## Framing a Prediction Problem
 My goal is to predict the duration of power outages to measure their severity.  
-I will use a regression model as time is continuous and the outages appear to follow some decaying distribution (some exponential-adjacent distribution). Since the outage duration PDF is non-linear I will use RMSE instead of $`R^2`$. This will also allow me to determine the average amount of time my predictions are off by.  
+I will use a regression model as time is continuous and the outages appear to follow some decaying distribution (some exponential-adjacent distribution). Since the outage duration PDF is non-linear I will use RMSE instead of R^2^. This will also allow me to determine the average amount of time my predictions are off by.  
 
 When making predictions, the year will not be a useful predictor at the time of prediction because  it is reliant on future months later in the year for all observations that come from a given year. I also can't use the start and end dates as those are directly used to calculate the duration. Although there is a revision period for ocean temperatures, this feature is still valid as it is produced on a historical basis. All other attributes can be known at the time of the event (usually), such as the type of weather. Or the information is (nearly) unchanging (e.g. NERC region, state name).  
 
@@ -213,9 +213,9 @@ To see if my model has an underlying bias towards with respect to certain featur
 >Average RMSE by year</iframe>
 
 I will perform a permutation test under:  
-$`H_0`$: Average RMSE is the same for all years.  
-$`H_1`$: Average RMSE is not the same for all years.  
-$`\alpha` = 0.05$
+H~0~: Average RMSE is the same for all years.  
+H~1~: Average RMSE is not the same for all years.  
+alpha = 0.05
 
 When performing the permutation test I shuffled the RMSE and recalculated the RMSE for each year.  
 As my test statistic I used total variation distance (TVD) by treating each year as an ordinal variable.
