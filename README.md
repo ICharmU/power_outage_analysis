@@ -7,6 +7,8 @@ Over time, power outages have had an increasing impact with the increased use of
 This outages dataset contains information from January 2000 to June 2016 for power outages occurring in US states (including non-continental states). The uncleaned dataset contains 1534 observations and 55 features. The most interesting columns were anomaly level and NERC region. Based on an oceanic temperature index, variations in ocean temperature at the time of the outage were reported. These temperatures were cyclical with an increasing amplitude toward 2016. This feature was useful when considering what the climate was like at the time of the outage (e.g. cold, hot) The NERC (North American Electric Reliability Corporation) regions differentiated the primary electrical power supplier for each state. During the mid 2000's there was a NERC merger that needed to be accounted.  
 
 ## Data Cleaning and Exploratory Data Analysis
+
+### Cleaning
 When reading in the data from an Excel file, the column names were formatted with periods instead of underscores. I reformatted the column names to be in snake case with underscores. Additionally, many of the datatypes were read in as strings by default, so I converted most of these columns to floats (e.g. outage duration in minutes), along with a few datetimes (e.g. the outage start date and time).  
 
 Some notable information about the locations where data was collected is that Washington D.C. had major reported outages during this time period, but Rhode Island had none (and thus was not listed as a state for any observations). A major outage was defined as 50,000 impacted customers or a significant loss of power (300 megawatts), both of which are similar in impact level, based on average household electricity consumption (~0.02 megawatts per day, although this can vary by location).  
@@ -19,9 +21,25 @@ Each observation was associated with a cause (e.g. severe weather, intentional s
 
 I removed the demand loss and customers affected columns as at least one of these criterions needed to be satisfied for the outage to be considered major. If one column was missing you could not predict the missing value using the known value as either the value was missing completely at random or the criterion was not met. Since this distinction could not be made, I found imputation to not be useful. Additionally, the demand loss criterion was reported in one of two ways (either peak demand loss or total demand loss), which had no distinction in reporting.  
 
-There was also currency relate data (e.g. electricity prices). I converted all percents to proportions here, as well as cents as integers to centers as floats. This allowed me to estimate total revenues for the state. When comparing my estimates to the actual total revenue columns there were some small discrepancies that are likely attributable to a sector that is not residential, industrial or commercial (or there was a rounding error). Here I removed some features such as total price, which was the average cost of electricity across all sectors. I found this aggregate to not be meaningful as the individual sector prices were available in the dataset. The total customers had a similar issue with small discrepancies between the sum of sector customers and the total customer feature, so I decided to use the provided total customer feature instead of my estimate.  
+There was also currency relate data (e.g. electricity prices). I converted all percents to proportions here, as well as cents as integers to centers as floats. This allowed me to estimate total revenues for the state. When comparing my estimates to the actual total revenue columns there were some small discrepancies that are likely attributable to a sector that is not residential, industrial or commercial (or there was a rounding error). Here I removed some features such as total price, which was the average cost of electricity across all sectors. I found this aggregate to not be meaningful as the individual sector prices were available in the dataset. On average, across all years, residential electricity prices were higher than commercial prices, which were higher than industrial prices. The total customers had a similar issue with small discrepancies between the sum of sector customers and the total customer feature, so I decided to use the provided total customer feature instead of my estimate. I removed state domestic product as a feature since electricity is not an industry that drives growth in a state and is typically considered stable as a utility.  
 
-The last section of feature involved state information (e.g. population, percent of state as water/land, population density). I converted percents to proportions here as well. 
+The last section of feature involved state information (e.g. population, percent of state as water/land, population density). I converted percents to proportions here as well. I found that larger states and states on the water (e.g. California, Texas) had the most number of outages over the time period. On the other hand, less densely populated states (e.g. North Dakota) had almost no major outages reported. This dataset differentiated urban areas (50,000+ people) from urban clusters (2,500-50,000 people) living in some local area. Wyoming had the highest statewide urban cluster percent, with about 40% of people living in urban clusters, while most states consisted of 10-20% urban clusters. Washington D.C. was considered 100% urban, so I filled in the missing urban cluster value with 0. 
+
+There were 9 observations that were missing values for anomaly level, so I probabilistically imputed these missing values by conditioning on year and state. This fixed about half of the observations, so for the rest I relaxed the condition to only be on year instead (Alaska only had 1 observations, so state did not work). Due to the wave-like pattern of ocean anomaly levels this imputation was justified as each year will be relatively close together. 
+
+<iframe
+  src="assets/imputing_anomaly_data.html"
+  width="800"
+  height="600"
+  frameborder="0"
+>test test test</iframe>
+
+
+
+### EDA
+
+
+
 
 
 
