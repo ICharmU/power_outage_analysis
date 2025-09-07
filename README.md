@@ -203,7 +203,7 @@ The population feature in the baseline model was really meant to capture locatio
 My final model was trained on the same train test split as the baseline model. My final model had a training accuracy of 5900 minutes (4.1 days) and a testing accuracy of 3340 minutes (2.3 days). This is slightly better than my baseline model and it seems promising with a lower testing accuracy than training accuracy (less likely to be overfitting). However, it should still be noted that this training and testing set could be better for my final linear model and features. I didn't cross validate my linear regression model during training, so it's a bit unclear how well the model generalizes.
 
 ## Fairness Analysis
-To see if my model has an underlying bias towards with respect to certain features I will undergo a permutation test. Specifically, I want to see if the RMSE is better or worse when predicting certain years. This way I can retroactively check if my model is consistent.  
+To see if my model has an underlying bias towards with respect to certain features I will carry out a permutation test. Specifically, I want to see if the RMSE is higher or lower, on average, when predicting certain years. This way I can retroactively check if my model is consistent or if there is a bias when predicting different years.  
 
 <iframe
   src="assets/avg_rmse_by_year.html"
@@ -211,3 +211,13 @@ To see if my model has an underlying bias towards with respect to certain featur
   height="400"
   frameborder="0"
 >Average RMSE by year</iframe>
+
+I will perform a permutation test under:
+$H_0$: Average RMSE is the same for all years.  
+$H_1$: Average RMSE is not the same for all years.  
+$\alpha = 0.05$
+
+When performing the permutation test I shuffled the RMSE and recalculated the RMSE for each year.  
+As my test statistic I used total variation distance (TVD) by treating each year as an ordinal variable.
+
+After performing 10,000 trials of permutation tests, I found the TVD to be at least 0.1 in 99.94% of the trials (p-value = 0.0006). A 10% difference between each year is quite lenient already. The fact that almost no permutations resulted in a smaller difference indicates the empirical number of outages distribution by year is almost certainly different for some years (at least based on this dataset). I find there to be a lack of parity with respect to year. 
