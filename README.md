@@ -34,6 +34,13 @@ There were 9 observations that were missing values for anomaly level, so I proba
   frameborder="0"
 >test test test</iframe>
 
+<iframe
+  src="assets/imputing_anomaly_data.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 
 
 ### EDA
