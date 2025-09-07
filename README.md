@@ -96,14 +96,14 @@ I first compared the missingness by year to infer whether the distribution appea
   width="600"
   height="400"
   frameborder="0"
->Missing outages over time</iframe>
+>Non-missing outages over time</iframe>
 
 <iframe
   src="assets/missing_outages_over_time.html"
   width="600"
   height="400"
   frameborder="0"
->Non-missing outages over time</iframe>
+>Missing outages over time</iframe>
 
 I performed a hypothesis test under the assumptions:  
 $H_0$: Missing and non-missing outage duration observations follow the same year distribution.  
@@ -115,7 +115,7 @@ Using the Kolmogorov Smirnov (KS) test for each permutation I found a distributi
   width="600"
   height="400"
   frameborder="0"
->Non-missing outages over time</iframe>
+>KS test p-value distribution</iframe>
 
 In ~99.998% of these trials (10,000 total), we would find the missing and non-missing outage durations to follow a different distributions of outages per year. This implies that outage durations are missing at random (MAR), conditional on the year.  
 
@@ -127,14 +127,14 @@ From a quick glance, these distributions look quite similar:
   width="600"
   height="400"
   frameborder="0"
->Non-missing outages over time</iframe>
+>Non-missing hurricane distribution</iframe>
 
 <iframe
   src="assets/missing_hurricane.html"
   width="600"
   height="400"
   frameborder="0"
->Non-missing outages over time</iframe>
+>Missing hurricane distribution</iframe>
 
 Instead of finding the p-value distribution I found the distribution of mean difference. These differences can be interpreted as the proportion difference between the bootstrapped and expected hurricane prevalences.  
 
@@ -143,10 +143,32 @@ Instead of finding the p-value distribution I found the distribution of mean dif
   width="600"
   height="400"
   frameborder="0"
->Non-missing outages over time</iframe>
+>Mean difference distribution</iframe>
 
-About 50% of non-missing bootstrapped mean differences are on either side of the actual mean difference. This indicates that knowing whether or not a hurricane occurred is not helpful in predicting missing values. The hurricane feature is likely MCAR.  
+About 50% (p-value = 0.497) of non-missing bootstrapped mean differences are on either side of the actual mean difference. This indicates that knowing whether or not a hurricane occurred is not helpful in predicting missing values. The hurricane feature is likely MCAR.  
 
+## Hypothesis Testing
+When looking at all outage durations, I was curious whether an exponential distribution was followed since this is a time based feature. I also thought the empirical distribution looked kind of similar to an exponential distribution.  
 
+<iframe
+  src="assets/expo_pdf.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Empirical exponential distribution</iframe>
+
+<iframe
+  src="assets/true_expo_pdf.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>MLE exponential distribution</iframe>
+
+$H_0$: Outage duration follows an exponential distribution.  
+$H_1$: Outage duration does not follow an exponential distribution.    
+
+I parameterized the null distribution with the maximum likelihood estimator $\beta = mean$ from the empirical distribution. This isn't a high stakes test, so I used a standard significance level of $\alpha = 0.05$.   
+
+Using a 2-sample KS test I concluded that it was unlikely the outage duration follows an exponential distribution (p-value = $3.32*10^{-12}$). This wasn't a huge surprise as the empirical distribution has a much larger concentration of points towards 0, compared to the MLE distribution.  
 
 
