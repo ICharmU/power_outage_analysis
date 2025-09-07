@@ -117,7 +117,33 @@ Using the Kolmogorov Smirnov (KS) test for each permutation I found a distributi
   frameborder="0"
 >Non-missing outages over time</iframe>
 
-In ~99.998% of these trials (10,000 total), we would find the missing and non-missing outage durations to follow a different distributions of outages per year.  
+In ~99.998% of these trials (10,000 total), we would find the missing and non-missing outage durations to follow a different distributions of outages per year. This implies that outage durations are missing at random (MAR), conditional on the year.  
+
+I also performed a similar test for hurricane prevalence (whether or not a hurricane occurred). Here I performed a difference in means test by treating hurricane and no hurricane as discrete.  
+
+From a quick glance, these distributions look quite similar:
+<iframe
+  src="assets/non_missing_hurricane.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Non-missing outages over time</iframe>
+
+<iframe
+  src="assets/missing_hurricane.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Non-missing outages over time</iframe>
+
+Instead of finding the p-value distribution I found the distribution of mean difference. These differences can be interpreted as the proportion difference between the bootstrapped and expected hurricane prevalences.  
+
+<iframe
+  src="assets/mean_diff_results.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Non-missing outages over time</iframe>
 
 
 
