@@ -12,6 +12,15 @@ When reading in the data from an Excel file, the column names were formatted wit
 
 Some notable information about the locations where data was collected is that Washington D.C. had major reported outages during this time period, but Rhode Island had none (and thus was not listed as a state for any observations). A major outage was defined as 50,000 impacted customers or a significant loss of power (300 megawatts), both of which are similar in impact level, based on average household electricity consumption (~0.02 megawatts per day, although this can vary by location).  
 
+More outages seem to occur during the winter and summer months than in spring and fall. This makes sense as summer comes with extreme heat, and winter extreme cold, while spring and fall are more of middle grounds.  
+
+<iframe
+  src="assets/outages_by_month.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Missing observations by month across all years</iframe>
+
 When cleaning the NERC regions I consolidated Alaska and Hawaii into non-continental, as NERC technically consists of only the continental states (Alaska and Hawaii have their own separate power grids). ECAR was one of three regions that [merged into the RFC region](https://www.nerc.com/news/Documents/NERCHistoryBook.pdf) (p. 102). Although ECAR was the only region of the 3 that merged that was reported here. If you're curious about NERC regions, here is a [map](https://atlas.eia.gov/datasets/eia::nerc-regions/explore) I found from the Energy Information Administration that guided my inquiries for some of the oddly classified NERC regions (e.g. FRCC, SERC I classified under FRCC since that observation with associated with the state Florida). Florida actually [split from SERC](https://www.nerc.com/news/Documents/NERCHistoryBook.pdf) in 1996 to be its own member in NERC (p. 171). This was before the data was collected so I disregarded FRCC's membership history. [Here](https://upload.wikimedia.org/wikipedia/commons/f/f4/NERC-map-en.svg) is a colored map that I found helpful for quickly differentiating the NERC regions.  
 
 As mentioned in the introduction, there was an ocean temperature anomaly level reporting that uses an oceanic index to compare expected ocean temperatures to their actual temperatures. If you're curious, you can find the temperature differences [here](https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php). There are blue, red and grey colors temperatures on that NOAA website. Another feature in the dataset considered all blue temperatures to be cold (<-0.5°C), red temperatures to be warm (>0.5°C) and grey to be normal (within +/- 0.5°C).  
