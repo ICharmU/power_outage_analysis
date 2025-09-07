@@ -214,7 +214,7 @@ To see if my model has an underlying bias towards with respect to certain featur
 
 I will perform a permutation test under:  
 H<sub>0</sub>: Average RMSE is the same for all years.  
-H<sup>1</sup>: Average RMSE is not the same for all years.  
+H<sub>1</sub>: Average RMSE is not the same for all years.  
 alpha = 0.05
 
 When performing the permutation test I shuffled the RMSE and recalculated the RMSE for each year.  
