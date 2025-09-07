@@ -62,6 +62,20 @@ There were many missing outage durations from 2000 and 2016. Since the study sta
 
 Hurricane name was another column. Any outages that didn't occur during a hurricane were missing. I binarized this column so all missing values were 0 (no hurricane) and 1 for observations with a hurricane name (hurricane occurred). This would lose minimal information as each hurricane would be associated with a month and year from the same observation and the name is mostly arbitrary (ignoring the first letter).  
 
+Looking at the average outage duration when there was or was not a hurricane, it appears that hurricanes have longer outages on average, regardless of NERC region:
+
+|     0.0 |      1.0 |
+|--------:|---------:|
+| 3344.28 |  5558.39 |
+| 2933.59 |   nan    |
+| 2993.61 |  7928.38 |
+| 3460.72 |  7668.17 |
+| 1502.85 |  4680.43 |
+| 2467.91 |  5268.6  |
+| 2040.36 | 14463.2  |
+| 1481.49 |   nan    |
+|  845.4  |   nan    |
+
 There were two observations, one from 2002 and the other from 2006, that were missing electricity prices. Since these seemed anomalous as all other columns had associated prices I removed them (assuming MCAR).  
 
 
