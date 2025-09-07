@@ -215,7 +215,7 @@ To see if my model has an underlying bias towards with respect to certain featur
 I will perform a permutation test under:  
 H$$_0$$: Average RMSE is the same for all years.  
 H$$^1$$: Average RMSE is not the same for all years.  
-alpha = 0.05
+$\alpha = 0.05$
 
 When performing the permutation test I shuffled the RMSE and recalculated the RMSE for each year.  
 As my test statistic I used total variation distance (TVD) by treating each year as an ordinal variable.
