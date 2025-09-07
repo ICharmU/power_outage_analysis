@@ -78,6 +78,47 @@ Looking at the average outage duration when there was or was not a hurricane, it
 
 There were two observations, one from 2002 and the other from 2006, that were missing electricity prices. Since these seemed anomalous as all other columns had associated prices I removed them (assuming MCAR).  
 
+## Assessment of Missingness
+
+### NMAR Analysis
+As mentioned previously, demand loss and customers were removed. Meeting at least one of these was a criterion for being included in the dataset. If both criterions were NA then interpolating one or both values could lead to incorrect expectations for a specific occurrence (i.e. you can't know which criteria caused the outage to be reported). If one criterion is missing, there is no way to distinguish whether this missing value didn't meet the criterion threshold or if the value is missing due to chance. If neither criterion is missing, then nothing needs to be done. However, a majority of points do not include both criterion as only 1 criterion is required to be reported. By this logic the missing values must be NMAR as you can't know their values with any other information available, except their actual values. 
+
+In order to make these columns MAR I would need to know the number of criteria met when the observation was reported. Right now I know at least one criterion was met, but without know the exact number there is still ambiguity whether one or both were met.  
+
+### Missingness Dependency
+
+Since there weren't many missing values in some cases, I wanted to infer whether or not missingness depended on certain features.  
+
+I first compared the missingness by year to infer whether the distribution appeared different by chance or if there was actually a difference between the missing and non-missing distributions for each year.
+
+<iframe
+  src="assets/non_missing_outages_over_time.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Missing outages over time</iframe>
+
+<iframe
+  src="assets/missing_outages_over_time.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Non-missing outages over time</iframe>
+
+I performed a hypothesis test under the assumptions:  
+$H_0$: Missing and non-missing outage duration observations follow the same year distribution.  
+$H_1$: Missing and non-missing outage duration observations follow the same year distribution.  
+
+Using the Kolmogorov Smirnov (KS) test for each permutation I found a distribution of p-values:
+<iframe
+  src="assets/ks_test_year_p_values.html"
+  width="600"
+  height="400"
+  frameborder="0"
+>Non-missing outages over time</iframe>
+
+In ~99.998% of these trials (10,000 total), we would find the missing and non-missing outage durations to follow a different distributions of outages per year.  
+
 
 
 
