@@ -167,7 +167,7 @@ When looking at all outage durations, I was curious whether an exponential distr
 H<sub>0</sub>: Outage duration follows an exponential distribution.  
 H<sub>1</sub>: Outage duration does not follow an exponential distribution.    
 
-I parameterized the null distribution with the maximum likelihood estimator beta = mean(empirical distribution). This isn't a high stakes test, so I used a standard significance level of alpha = 0.05.   
+I parameterized the null distribution with the maximum likelihood estimator $\beta$ = mean(empirical distribution). This isn't a high stakes test, so I used a standard significance level of alpha = 0.05.   
 
 Using a 2-sample KS test I can infer it is unlikely the outage duration follows an exponential distribution (p-value = 3.32*10<sup>-12</sup>). This isn't a huge surprise as the empirical distribution has a much larger concentration of points towards 0, compared to the MLE distribution.  
 
