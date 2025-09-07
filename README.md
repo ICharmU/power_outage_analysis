@@ -64,17 +64,17 @@ Hurricane name was another column. Any outages that didn't occur during a hurric
 
 Looking at the average outage duration when there was or was not a hurricane, it appears that hurricanes have longer outages on average, regardless of NERC region:
 
-|     0.0 |      1.0 |
-|--------:|---------:|
-| 3344.28 |  5558.39 |
-| 2933.59 |   nan    |
-| 2993.61 |  7928.38 |
-| 3460.72 |  7668.17 |
-| 1502.85 |  4680.43 |
-| 2467.91 |  5268.6  |
-| 2040.36 | 14463.2  |
-| 1481.49 |   nan    |
-|  845.4  |   nan    |
+|  NERC   |     0.0 |      1.0 |
+|--------:|--------:|---------:|
+|  FRCC   | 3344.28 |  5558.39 |
+|  MRO    | 2933.59 |   nan    |
+|  NPCC   | 2993.61 |  7928.38 |
+|  RFC    | 3460.72 |  7668.17 |
+|  SERC   | 1502.85 |  4680.43 |
+|  SPP    | 2467.91 |  5268.6  |
+|  TRE    | 2040.36 | 14463.2  |
+|  WECC   | 1481.49 |   nan    |
+|  AK/HI  |  845.4  |   nan    |
 
 There were two observations, one from 2002 and the other from 2006, that were missing electricity prices. Since these seemed anomalous as all other columns had associated prices I removed them (assuming MCAR).  
 
